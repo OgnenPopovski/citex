@@ -1,0 +1,36 @@
+<linked-page-header></linked-page-header>
+
+<crud crud-title="eauction.translate" 
+	crud-service="Translation"
+	crud-form="admin/misc/translations" 
+    insert='insert'
+	crud-table-params="{ count: 10, sorting: { id: 'desc' } }"
+    after-init="onInit">
+	<div class="table-responsive">
+        <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+            <tbody>
+                <tr ng-repeat="t in $data">
+                    <td data-title="'eauction.language' | translate"  
+                    	sortable="'lang.name'" 
+                    	filter="{ 'lang.name': 'text' }">
+                    	{{t.lang.name}}
+                   	</td>
+                    <td data-title="'generic.key' | translate"  
+                    	sortable="'key'" 
+                    	filter="{ 'key': 'text' }">
+                    	{{t.key}}
+                   	</td>
+                   	<td data-title="'generic.value' | translate"  
+                    	sortable="'value'" 
+                    	filter="{ 'value': 'text' }">
+                    	{{t.value}}
+                   	</td>                    
+                    <td class="td-edit" data-title="'action.edit' | translate">
+						<edit-button small edit-function="edit(t.id)"></edit-button>
+                        <delete-button small delete-function="deleteDialog(t.id)"></delete-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</crud>

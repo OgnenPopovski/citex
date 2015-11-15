@@ -1,0 +1,58 @@
+<linked-page-header></linked-page-header>
+
+<div class="row">
+	<div class="col-md-12">
+		<crud crud-title="eauction.user" 
+			crud-type="users" 
+			crud-form="admin/auth/users" 
+			on-select="changeEmployee"
+			crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+			
+			<div class="table-responsive">
+		        <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+		            <tbody>
+		                <tr ng-repeat="user in $data">
+		                    <td class="td-id" data-title="'ID'"  sortable="'id'">{{user.id}}</td>
+		                    <td data-title="'generic.username' | translate"  sortable="'username'" filter="{ 'username': 'text' }">{{user.username}}</td>
+		                    <td data-title="'eauction.user_role' | translate"  sortable="'role.name'">{{user.role.name}}</td>
+		                    <!-- <td data-title="'eauction.employee' | translate">
+	                    		{{ user.employee.firstName }} {{ user.employee.lastName }} 
+	                    		<edit-button small edit-function="select(user.id)"></edit-button>
+	                    	</td> -->
+		                    <td class="td-edit" data-title="'action.edit' | translate">
+								<edit-button small edit-function="edit(user.id)"></edit-button>
+		                        <delete-button small delete-function="deleteDialog(user.id)"></delete-button>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>
+		</crud>
+	</div>
+	<!-- <div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title" translate="eauction.employee"></h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group" ng-show="user.id">
+					<label for="username" translate="eauction.user"></label>
+					<p>{{ user.username }}</p>
+				</div>
+			    <validate label="eauction.employee" field="employee">
+					<select class="form-select" ui-select2 ng-model="employee.id" 
+					data-placeholder="{{ 'action.select' | translate }} {{ 'eauction.employee' | translate }}">
+						<option value=""></option>
+						<option ng-repeat="e in employees" value="{{e.id}}">{{e.firstName }} {{ e.lastName }}</option>
+					</select>
+				</validate>
+			</div>
+			<div class="panel-footer">
+				<button type="submit" ng-click="saveEmployee()" class="btn btn-primary" ng-disabled="!user.id">
+					<i class="fa fa-fw fa-save"></i> {{ 'action.save' | translate }}
+				</button>
+			</div>
+		</div>
+	</div> -->
+
+</div>

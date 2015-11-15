@@ -1,0 +1,62 @@
+{
+    "global": {
+        "title": "S&T HR",
+        "addAttachment": "Додади прилог"
+    },
+    "generic": {
+        "username": "Корисничко име",
+        "password": "Лозинка",
+        "login_info": "Најавете се со snt:snt за да ги гледате и уредувате ентитетите.",
+        "language": "Јазик",
+        "mk": "Македонски",
+        "en": "Англиски",
+        "required": "Полето е задолжително",
+        "name": "Име",
+        "title": "Наслов",
+        "code": "Код",
+        "description": "Опис",
+        "note": "Забелешка",
+        "date": "Датум",
+        "date_start": "Почетен датум",
+        "date_end": "Краен датум",
+        "date_from": "Датум од",
+        "date_to": "Датум до",
+        "birth_date": "Роденден",
+        "number": "Број",
+        "type": "Тип",
+        "select_type": "Изберете тип",
+        "status": "Статус",
+        "select_status": "Изберете статус",
+        "first_name": "Име",
+        "last_name": "Презиме",
+        "middle_name": "Средно име",
+        "father_name": "Татково име",
+        "maiden_name": "Моминско презиме",
+        "address": "Адреса",
+        "phone": "Телефон",
+        "mobile_phone": "Мобилен телефон",
+        "fax": "Fax",
+        "email": "Email",
+        "add_or_edit": "Додади или уреди",
+        "modal_delete_prompt": "Дали сте сигурни дека сакате да го избришете овој запис?",
+        "male": "Машки",
+        "female": "Женски",
+        "amount": "Сума",
+        "percents": "Проценти"
+    },
+    "action": {
+        "add": "Додади",
+        "edit": "Уреди",
+        "save": "Сними",
+        "delete": "Избриши",
+        "cancel": "Откажи",
+        "close": "Затвори",
+        "view": "Прегледај",
+        "select": "Избери",
+        "back": "Назад",
+        "login": "Најава"
+    },
+    "sl": {
+        "person": "Личност"
+    }
+}

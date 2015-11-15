@@ -1,0 +1,74 @@
+<linked-page-header></linked-page-header>
+
+<div class="row">
+	<div class="col-md-6">
+		<crud crud-title="eauction.page_group" 
+			crud-type="page_groups"
+			crud-form="admin/auth/page_groups" 
+			crud-table-params="{ count: 10, sorting: { weight: 'asc' } }"
+			on-select="setBase"
+			on-clear="clearBase"
+			after-init="onGroupsInit">
+		
+			<div class="table-responsive">
+		        <table ng-table="table" class="table table-bordered table-striped table-condensed ng-table-responsive">
+		            <tbody>
+		                <tr ng-repeat="r in $data">
+		                   <td data-title="'generic.weight' | translate"  sortable="'weight'">{{r.weight}}</td>
+		                   <td data-title="'generic.name' | translate"  sortable="'name'">{{r.name}}</td>
+		                   <td data-title="'generic.label' | translate"  sortable="'label'">
+								<i class="{{r.icon}}" title="{{r.icon}}"></i>
+			                   	<a href="" ng-click="select(r.id)">
+			                   		{{ r.label | translate }}
+			                   	</a>
+		                   </td>
+		                    <td class="td-edit" data-title="'action.edit' | translate">
+		                    	<edit-button small edit-function="edit(r.id)"></edit-button>
+		                        <delete-button small delete-function="deleteDialog(r.id)"></delete-button>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>
+		</crud>
+	</div>
+	<div class="col-md-6">
+		<h4>{{entity.name}}</h4>
+			
+			<sub-crud crud-title="eauction.page" 
+					  crud-form="pages" 
+					  crud-service="PageGroup" 
+					  base-name="group" 
+					  base-id="entity.id" 
+					  add="addPage" 
+					  query="getPages" 
+					  get-by-id="getPageById"
+					  remove="deletePage" 
+					  after-init="onGroupsInit">
+
+				<table class="table table-bordered table-striped ng-table-responsive" ng-show="entities.length!==0">
+					<thead>
+						<tr>
+							<th translate="generic.name"></th>
+							<th translate="generic.label"></th>
+							<th translate="action.edit"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="e in entities">
+							<td>{{e.name}}</td>
+							<td>
+								<i class="{{e.icon}}" title="{{e.icon}}"></i>
+		                   		{{ e.label | translate }}
+							</td>
+							<td class="td-edit">
+								<edit-button small edit-function="edit(e.id)"></edit-button>
+								<delete-button small delete-function="deleteDialog(e.id)"></delete-button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</sub-crud>
+	</div>
+</div>

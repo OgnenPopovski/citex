@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<html lang="en" class="watch-active-state">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <title>Sport Leaf</title>
+
+        <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> 
+
+
+        <!-- Bootstrap core CSS -->
+
+        <link href="${pageContext.request.contextPath}/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/bootstrap/dist/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="${pageContext.request.contextPath}/resources/bower_components/ng-table/ng-table.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/AngularJS-Toaster/toaster.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/select2/select2.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/select2/select2-bootstrap3.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/angular-motion/dist/angular-motion.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/famfamfam-flags.css" rel="stylesheet"> 
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Path to Framework7 Library CSS-->
+        <link href="${pageContext.request.contextPath}/resources/css/template/framework7.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/template/my-app.css" rel="stylesheet">
+
+
+        <!-- angular snap styles -->
+        <link href="${pageContext.request.contextPath}/resources/bower_components/angular-snap/angular-snap-only.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/bower_components/snapjs/snap.css" rel="stylesheet">
+    </head>
+
+    <!--<body ng-app="HR">-->
+    <body class="" ng-app="appModule">
+        <!-- Status bar overlay for fullscreen mode-->
+        <div class="statusbar-overlay"></div>
+        <!-- Panels overlay-->
+        <div class="panel-overlay"></div>
+        <!-- Left panel with reveal effect-->
+        <div snap-drawer="left" style="background-color: black;" ng-controller="LeftPanelController as controller">
+
+
+
+            <div class="list-block" style="margin-top:0px">
+                <div class="list-group">
+                    <ul>
+                        <li class="item-content list-panel-all close-panel item-link left-menu">
+                            <a ui-sref="allPlayers" class="item-link" snap-close>
+                                <div class="item-inner">
+                                    <div class="item-title">Players</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="item-content list-panel-all close-panel item-link left-menu">
+                            <a ui-sref="allTeams" class="item-link" snap-close>
+                                <div class="item-inner">
+                                    <div class="item-title">Teams</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="item-content list-panel-all close-panel item-link left-menu">
+                            <a href="#" class="item-link" snap-close>
+                                <div class="item-inner">
+                                    <div class="item-title">Matches</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div ng-show="logged.user" style="height: 40%">
+                <a ng-click="logout()" href="" class="right clickable" style="margin-right: 10px">
+                    Sign out 
+                </a>
+                <div style="padding-top: 25px">
+                    <img ng-src="{{logged.user.image || 'http://distribucia.com/admin/images/users/logo/no_img.png'}}" style="margin-left: 10px"/>
+                    <h4 class="image-text" style="margin-left: 40px; padding-top: 10px;"><span>{{logged.user.base.name}}</span></h4>
+                </div>
+            </div>
+
+            <div class="content-block" ng-hide="logged.user ">
+                <button ng-click="login()" class="button-blue">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">Login</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <!--MAIN MENU-->
+            <div class="bottom-links">
+                <a href="#" class="item-link">
+                    News
+                </a> |
+                <a href="#" class="item-link">
+                    Highlights
+                </a> |
+                <a href="#" class="item-link">
+                    Marketing
+                </a>
+            </div>
+        </div>
+
+        <!-- Right panel with cover effect-->
+        <div snap-drawer="right" style="background-color: black;" ng-controller="RightPanelController as controller">
+
+            <div class="content-block">
+                <!--<div class="content-block-title"><h3>Social section</h3></div>-->
+                <h3>Social</h3>
+            </div>
+            <hr/>
+            <div ng-include="'cruds/followerDetails.html'"></div>
+
+            <!--            <div class="content-block">
+                            <a ui-sref="chat" snap-close> <i class="icon tabbar-demo-icon-4"></i>
+                                <span class="tabbar-label">chat</span>
+                            </a>
+                            <br/>
+                            <span class="glyphicon glyphicon-thumbs-up"> </span>{{player.likes}}
+                        </div>-->
+
+
+
+        </div>
+        <!-- Views, and they are tabs-->
+        <!-- We need to set "toolbar-through" class on it to keep space for our tab bar-->
+        <div>
+            <!--<div snap-content>-->
+            <div class="view view-main tab active" snap-content>
+                <!-- Top Navbar-->
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <!-- We have home navbar without left link-->
+                        <div class="left sliding">
+                            <a href="#" snap-toggle="left" class="link icon-only open-panel"><i class="fa fa-leaf"></i></a>
+                        </div>
+                        <div class="center">
+                            <h4>Sport Leaf</h4>
+                        </div>
+                        <div class="right">
+                            <!-- Right link contains only icon - additional "icon-only" class-->
+                            <a href="#" data-panel="right" class="link icon-only open-panel" snap-toggle="right"> <i class="fa fa-users"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Pages-->
+                <div class="pages navbar-through">
+                    <!-- Page, data-page contains page name-->
+                    <div class="page">
+                        <!--<div data-page="index-1" class="page">-->
+                        <!-- Scrollable page content-->
+                        <div class="page-content">
+                            <div ui-view style="margin-bottom: 60px; margin-top: 20px"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Tabbar-->
+                <div class="toolbar tabbar tabbar-labels">
+                    <div class="toolbar-inner">
+                        <a ui-sref="feed" class="tab-link active"> 
+                            <i class="icon fa fa-tasks blue padd-7"><span class="badge bg-red">4</span></i>
+                            <span class="tabbar-label">feed</span>
+                        </a>
+                        <a ui-sref="myleaf" class="tab-link"><i class="icon fa fa-leaf blue padd-7"></i><span class="tabbar-label">leaf</span></a>
+                        <a ui-sref="career" class="tab-link"> <i class="icon fa fa-history blue padd-7"></i>
+                            <span class="tabbar-label">career</span>
+                        </a>
+                        <a ui-sref="myoffice" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i>
+                            <span class="tabbar-label">office</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="${pageContext.request.contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/jquery-cookie/jquery.cookie.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/momentjs/min/moment-with-langs.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular/angular.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-route/angular-route.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-cookies/angular-cookies.js"></script>    
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-translate/angular-translate.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/ng-file-upload/angular-file-upload.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-touch/angular-touch.js"></script>
+
+        <script src="${pageContext.request.contextPath}/resources/bower_components/ng-table/ng-table.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/AngularJS-Toaster/toaster.js"></script>
+
+        <script src="${pageContext.request.contextPath}/resources/bower_components/select2/select2.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-ui-select2/src/select2.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>  	
+
+        <!-- websockets -->
+        <script src="${pageContext.request.contextPath}/resources/bower_components/sockjs/sockjs-0.3.4.js"></script>  	
+        <script src="${pageContext.request.contextPath}/resources/bower_components/stomp/stomp.js"></script>  	
+        <script src="${pageContext.request.contextPath}/resources/bower_components/oauth-js/dist/oauth.js"></script>  	
+
+        <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+
+        <script	src="${pageContext.request.contextPath}/resources/js/directives/stats.js"></script>
+
+                <!--<script src="${pageContext.request.contextPath}/resources/js/directives/general.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/crud-directive.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/mtm-directive.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/combo.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/insert-combo.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/employee-combo.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/employee-small.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/input-field.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/date-field.js"></script>-->
+            <!--<script src="${pageContext.request.contextPath}/resources/js/directives/radio.js"></script>-->
+
+        <script src="${pageContext.request.contextPath}/resources/js/services.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/controllers.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/controllers/player.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/controllers/galery.js"></script>
+
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-ui-router/angular-ui-router.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/bower_components/angular-ng-table/ng-table.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/websocket.js"></script>
+
+    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+
+    <script src="${pageContext.request.contextPath}/resources/bower_components/angular-snap/angular-snap.js"></script>  	
+    <script src="${pageContext.request.contextPath}/resources/bower_components/snapjs/snap.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<div class="page-header">
+	<h2>
+		<i ng-if="icon" class="fa fa-fw {{icon}}"></i> 
+		<a ng-if="url" href="{{url}}" title="{{urlTitle}}">{{ headerTitle }}</a>
+		<span ng-if="!url">{{ headerTitle }}</span> 
+		<small ng-if="short">({{short}})</small>
+	</h2>
+</div>

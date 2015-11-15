@@ -1,0 +1,14 @@
+<div ng-class="{'has-error has-feedback': ($root.errors && $root.errors[fName]) || (form[fName].$dirty && form[fName].$invalid)}">
+	
+  <label class="control-label" for="{{fName}}">{{ fLabel | translate }} <span ng-show="ifRequired">*</span></label>
+  <input class="form-control" ng-model="fModel" ng-required="ifRequired" />
+  <span ng-if="$root.errors[fName] || (form[fName].$invalid && form[fName].$dirty)" 
+  		class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <p ng-show="$root.errors[fName]" class="help-block">{{$root.errors[fName] | translate}}</p>
+  <div ng-repeat="(err,val) in form[fName].$error">
+	  <p ng-show="val && form[fName].$invalid && form[fName].$dirty" class="help-block">
+	  	{{ 'validation.'+err | translate: validationParams }}
+	  </p>
+  
+  </div>
+</div>

@@ -1,0 +1,494 @@
+body {
+    padding-top: 10px;
+    margin-top: 50px;
+}
+section {
+    padding-top: 40px;
+}
+.container-header {
+    width: 95%;
+    margin: 0 auto;
+}
+.tab-content {
+    margin-top: 10px;
+}
+.profile-pic-drop {
+    border: 4px #ccc dashed;
+    text-align: center;
+    height: 240px;
+    width: 240px;
+    padding-top: 60px;
+}
+.profile-pic {
+    width: 240px;
+    height: 240px;
+}
+div.profile-pic .drop-image {
+    display: none;
+}
+div.profile-pic:hover .drop-image {
+    display: block;
+    width: 240px;
+    height: 240px;
+    z-index: 10;
+    text-align: center;
+    border: 4px #ccc dashed;
+}
+.img-employee {
+    margin: 0 auto;
+}
+div.profile-pic:hover .img-employee {
+    display: none;
+}
+.crud-button {
+    text-align: right;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.td-center {
+    text-align: center;
+}
+.td-edit {
+    text-align: center;
+    width: 170px;
+}
+.td-id {
+    text-align: right;
+    width: 50px;
+}
+.form-select {
+    width: 100%;
+    display: block;
+}
+.top-buffer {
+    margin-top: 10px;
+}
+.left-buffer {
+    margin-left: 10px;
+}
+.nav>li {
+    cursor: pointer;
+}
+.upload-drop {
+    margin: 10px;
+    padding: 10px;
+    width: 90%;
+    border: 2px #ccc dashed;
+}
+.upload-input {
+    margin: 10px;
+    padding: 10px;
+    width: 90%;
+}
+.panel-title a {
+    cursor: pointer;
+}
+.page-header {
+    padding-bottom: 9px;
+    margin: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.page-header h2 {
+    margin: 0;
+}
+.info-label {
+    display: block;
+}
+.act-right-btns {
+    text-align: right;
+}
+.bs-example {
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #fff;
+    border-width: 1px;
+    border-color: #ddd;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: none;
+    border-style: solid;
+    padding-bottom: 10px;
+}
+.sel-btn {
+    float: right;
+}
+.employee-combo-result {
+    width: 16px;
+    height: 24px;
+    margin-right: 10px;
+}
+.employee-combo-selection {
+    width: 16px;
+    height: 24px;
+    margin-right: 10px;
+}
+.has-feedback .form-control-feedback {
+    margin-right: 0;
+}
+.tight {
+    padding: 5px 5px;
+}
+.tight a {
+    padding: 5px 5px;
+}
+.dropdown-submenu {
+    position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #cccccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+    border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+    float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+.btn-clear-filter {
+    margin-top: 25px;
+    margin-left: -25px;
+}
+.top-bordered {
+    margin-top: 15px;
+    padding: 19px 20px 20px;
+    border-top: 1px solid #e5e5e5;
+}
+.icon-github {
+    background: no-repeat url('https://raw.github.com/sveinung/SetersBoka/master/public/lib/bootstrap/docs/assets/img/github-16px.png');
+    width: 16px;
+    height: 16px;
+}
+.hero-unit {
+    position: relative;
+    padding: 40px 0;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
+    background: #020031;
+    background: -moz-linear-gradient(45deg, #020031 0%, #6d3353 100%);
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #020031), color-stop(100%, #6d3353));
+    background: -webkit-linear-gradient(45deg, #020031 0%, #6d3353 100%);
+    background: -o-linear-gradient(45deg, #020031 0%, #6d3353 100%);
+    background: -ms-linear-gradient(45deg, #020031 0%, #6d3353 100%);
+    background: linear-gradient(45deg, #020031 0%, #6d3353 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353', GradientType=1);
+    -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
+    -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
+    box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+}
+.hero-unit .btn, .pagination-centered .btn {
+    float: none;
+    font-weight: normal;
+}
+.hero-unit p {
+    margin: 1em 0;
+}
+.bs-docs-social {
+    margin-top: 1em;
+    padding: 15px 0;
+    text-align: center;
+    background-color: rgba(245, 245, 245, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+.bs-docs-social-buttons {
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.bs-docs-social-buttons li {
+    display: inline-block;
+    padding: 5px 8px;
+    line-height: 1;
+}
+/* Allows .modal-backdrop to remain on the page without blocking */
+
+.modal-backdrop {
+    overflow: hidden;
+    height: 0;
+    -webkit-transition: opacity 0.15s linear, height 0 0.2s linear;
+    -moz-transition: opacity 0.15s linear, height 0 0.2s linear;
+    -ms-transition: opacity 0.15s linear, height 0 0.2s linear;
+    -o-transition: opacity 0.15s linear, height 0 0.2s linear;
+    transition: opacity 0.15s linear, height 0 0.2s linear;
+}
+.modal-backdrop.in {
+    height: 100%;
+    -webkit-transition: opacity 0.15s linear;
+    -moz-transition: opacity 0.15s linear;
+    -ms-transition: opacity 0.15s linear;
+    -o-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+}
+/*** Calendar ***/
+
+.calAlert {
+    width: 595px;
+    float: right;
+    margin-bottom: 5px;
+}
+.calXBtn {
+    float: right;
+    margin-top: -5px;
+    margin-right: -5px;
+}
+.calWell {
+    float: left;
+    margin-bottom: 40px;
+}
+.fc-event.openSesame .fc-event-skin {
+    background-color: rgb(229, 229, 11);
+    color: black;
+}
+.fc-event.customFeed .fc-event-skin {
+    background-color: rgb(132, 222, 175);
+    color: black;
+}
+.calTools {
+    margin-bottom: 10px;
+}
+.fc-event-inner {
+    cursor: pointer;
+}
+.user-notification {} .user-notification-date {
+    color: #999;
+    font-size: 12px;
+}
+.not-opened {
+    font-weight: bold;
+}
+.dropdown-header {
+    display: block;
+    padding: 3px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+}
+.field-button {
+    margin: 5px 0;
+}
+.link {
+    fill: none;
+    stroke: #000;
+}
+.border {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #aaa;
+}
+.node-os {
+    cursor: pointer;
+}
+.node-os text {
+    font: 10px sans-serif;
+    font-style: normal;
+    fill: white;
+}
+.board-member {
+    position: relative;
+    display: block;
+    padding: 10px 5px;
+}
+.tleft {
+    text-align: left;
+}
+.tcenter {
+    text-align: center;
+}
+.tright {
+    text-align: right;
+}
+.tjustify {
+    text-align: justify;
+}
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+.employee-small .photo {
+    text-align: center;
+    margin-top: -50px;
+}
+.employee-small table th {
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.employee-small table td {
+    padding: 2px 0;
+}
+.include-exclude td:last-child {
+    width: 40px;
+}
+.include-exclude caption {
+    font-weight: bold;
+}
+/*
+ * Datepicker element
+ */
+
+.datepicker.dropdown-menu {
+    width: 250px;
+    height: 270px;
+}
+.datepicker.dropdown-menu button {
+    outline: none;
+    border: 0px;
+}
+.datepicker.dropdown-menu tbody {
+    height: 180px;
+}
+.datepicker.dropdown-menu tbody button {
+    padding: 6px;
+}
+.datepicker.dropdown-menu.datepicker-mode-1 tbody button, .datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+    height: 65px;
+}
+.table-count {
+    float: right;
+    margin-top: 8px;
+}
+.right {
+    float: right;
+}
+.clickable {
+    cursor: pointer;
+}
+.clickable {
+    cursor: pointer;
+}
+.ann_important {
+    font-weight: bold;
+}
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+/* Creates a small triangle extender for the tooltip */
+
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+/* Style northward tooltips differently */
+
+.d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+.striked {
+    text-decoration: line-through;
+}
+.task-item.ng-enter, .task-item.ng-leave, .task-item.ng-move {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+.task-item.ng-enter, .task-item.ng-move {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+.task-item.ng-move.ng-move-active, .task-item.ng-enter.ng-enter-active {
+    opacity: 1;
+    height: 120px;
+}
+.task-item.ng-leave {
+    opacity: 1;
+    overflow: hidden;
+}
+.task-item.ng-leave.ng-leave-active {
+    opacity: 0;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.chart {
+    shape-rendering: crispEdges;
+}
+.mini text {
+    font: 9px sans-serif;
+}
+.main text {
+    font: 12px sans-serif;
+}
+.month text {
+    text-anchor: start;
+}
+.todayLine {
+    stroke: blue;
+    stroke-width: 1.5;
+}
+.axis line, .axis path {
+    stroke: black;
+}
+.miniItem {
+    stroke-width: 6;
+    stroke: #285e8e;
+    fill: #3276b1;
+    opacity: 0.7;
+}
+.mainItem {
+    stroke: #285e8e;
+    fill: #3276b1;
+    opacity: 0.7;
+}
+.future {
+    stroke: gray;
+    fill: #ddd;
+}
+.past {
+    stroke: green;
+    fill: lightgreen;
+}
+.brush .extent {
+    stroke: gray;
+    fill: blue;
+    fill-opacity: .165;
+}

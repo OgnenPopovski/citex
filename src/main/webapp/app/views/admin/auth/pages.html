@@ -1,0 +1,56 @@
+<linked-page-header></linked-page-header>
+
+<div ng-controller="PageGroupController">
+    <crud crud-title="eauction.page_group" 
+          crud-type="page_groups" 
+          crud-form="admin/auth/page_groups"
+          crud-table-params="{ count: 10, sorting: { weight: 'asc' } }" 
+          on-select="setBase" 
+          on-clear="clearBase" 
+          after-init="onGroupsInit">
+        <table ng-table="table" class="table table-bordered table-striped table-condensed ng-table-responsive" style="display:none">
+            <tbody>
+                <tr ng-repeat="r in $data"></tr>
+            </tbody>
+        </table>
+    </crud>
+</div>
+<div ng-controller="PageController">
+    <crud crud-title="eauction.page" 
+          crud-type="pages" 
+          crud-form="admin/auth/pages"
+          after-init="onGroupsInit" 
+          group-by="groupByGroupLabel" 
+          crud-table-params="{ count: 30, sorting: { group: {weight: 'asc' }, weight: 'asc'} } ">
+
+        <div class="table-responsive">
+            <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+                <tbody ng-repeat="group in $groups">
+                    <tr class="ng-table-group">
+                        <td colspan="{{$columns.length}}">
+                            <a href="" ng-click="group.$hideRows = !group.$hideRows">
+                                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+                                <strong>{{ group.value }}</strong>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="r in group.data" ng-hide="group.$hideRows">
+                        <td data-title="'generic.weight' | translate" sortable="'weight'">{{r.weight}}</td>
+                        <td data-title="'generic.name' | translate" sortable="'name'" filter="{ 'name': 'text' }">{{r.name}}</td>
+                        <td data-title="'generic.label' | translate" sortable="'label'" filter="{ 'label': 'text' }">{{r.label | translate}}</td>
+                        <td data-title="'generic.icon' | translate" sortable="'icon'"><i class="{{r.icon}}"></i> {{r.icon}}</td>
+                        <td class="td-edit" data-title="'action.assign' | translate">
+                            <button class="btn btn-default btn-xs" ng-click="$parent.assign(r)">
+                                <i class="fa fa-fw fa-level-down"></i> {{ 'eauction.assign_to_role' | translate}}
+                            </button>
+                        </td>
+                        <td class="td-edit" data-title="'action.edit' | translate">
+                            <edit-button small edit-function="edit(r.id)"></edit-button>
+                            <delete-button small delete-function="deleteDialog(r.id)"></delete-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </crud>
+</div>

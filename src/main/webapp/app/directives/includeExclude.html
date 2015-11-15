@@ -1,0 +1,33 @@
+<fieldset>
+	<legend>{{ 'generic.add_or_remove' | translate }} {{ title | translate }}</legend>
+	<div class="row">
+		<div class="col-md-6">
+			<table class="table table-condensed include-exclude">
+				<caption>{{ 'generic.excluded' | translate }} ({{excluded.length}})</caption>
+				<tr ng-repeat="item in excluded">
+					<td>{{ item[property] }}</td>
+					<td>
+						<button type="button" class="btn btn-success btn-xs"
+							ng-click="add($index)">
+							<i class="fa fa-fw fa-plus-circle"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-6">
+			<table class="table table-condensed include-exclude">
+				<caption>{{ 'generic.included' | translate }} ({{included.length}})</caption>
+				<tr ng-repeat="item in included">
+					<td>{{ item[property] }}</td>
+					<td>
+						<button type="button" class="btn btn-warning btn-xs"
+							ng-click="remove($index)">
+							<i class="fa fa-fw fa-minus-circle"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</fieldset>

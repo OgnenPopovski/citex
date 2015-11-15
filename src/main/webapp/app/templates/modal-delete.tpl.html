@@ -1,0 +1,20 @@
+<div class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">{{ 'action.delete' | translate }} <span class="text-danger">{{ crudTitle | translate }}</span></h4>
+      </div>
+      <div class="modal-body" ng-bind="content"></div>
+      <div class="modal-body has-error has-feedback" ng-show="$root.errors && $root.errors._objectErrors">
+		<p class="help-block">{{ $root.errors._objectErrors | translate}}</p>      		
+      </div>
+      <div class="modal-footer">
+	    <button type="button" class="btn btn-default" ng-click="$hide()">
+			<i class="fa fa-fw fa-times"></i> {{ 'action.cancel' | translate }}
+		</button>
+        <delete-button delete-function="delete(id)"></delete-button>        
+      </div>
+    </div>
+  </div>
+</div>

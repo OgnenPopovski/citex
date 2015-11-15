@@ -1,0 +1,22 @@
+<h2 class="page-header"> {{ 'persons' | translate }} </h2>
+
+<crud crud-title="sl.person" 
+	crud-type="person" 
+    crud-form="admin/person" 
+	crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+
+	<div class="table-responsive">
+        <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+            <tbody>
+                <tr ng-repeat="r in $data">
+                   <td class="td-id" data-title="'ID'"  sortable="'id'">{{r.id}}</td>
+                   <td data-title="'generic.first_name' | translate"  sortable="'firstName'" filter="{ 'firstName': 'text' }">{{r.firstName}} {{r.lastName}}</td>
+                   <td class="td-edit" data-title="'action.edit' | translate">
+						<edit-button small edit-function="edit(r.id)"></edit-button>
+                        <delete-button small delete-function="deleteDialog(r.id)"></delete-button>
+                   </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</crud>

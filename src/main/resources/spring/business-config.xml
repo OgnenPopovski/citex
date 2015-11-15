@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Repository and Service layers -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+                http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd ">
+
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+	<!-- import the dataSource definition -->
+	<import resource="datasource-config.xml" />
+
+	<context:component-scan base-package="mk.ukim.finki.citex.service" />
+
+	<!-- Configurer that replaces ${...} placeholders with values from a properties 
+		file -->
+	<!-- (in this case, JDBC-related settings for the JPA EntityManager definition 
+		below) -->
+	<context:property-placeholder location="classpath:spring/data-access.properties"
+		system-properties-mode="OVERRIDE" />
+
+	<!--<annotation-driven /> -->
+
+	<!-- enables scanning for @Transactional annotations -->
+	<tx:annotation-driven />
+
+	<beans profile="spring-data-jpa">
+		<jpa:repositories base-package="mk.ukim.finki.citex.repository" />
+
+		<bean id="entityManagerFactory"
+			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+			p:dataSource-ref="dataSource">
+			<property name="jpaVendorAdapter">
+				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+					p:database="${jpa.database}" p:generateDdl="${jpa.generateDDL}"
+					p:showSql="${jpa.showSQL}" />
+
+			</property>
+			<property name="persistenceUnitName" value="sport" />
+			<property name="packagesToScan" value="mk.ukim.finki.citex" />
+		</bean>
+
+		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+			p:entityManagerFactory-ref="entityManagerFactory" />
+
+		<!-- Post-processor to perform exception translation on @Repository classes 
+			(from native exceptions such as JPA PersistenceExceptions to Spring's DataAccessException 
+			hierarchy). -->
+		<bean
+			class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	</beans>
+</beans>

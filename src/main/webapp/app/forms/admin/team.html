@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col-md-3">
+		<img style="width:100%" ng-src="{{entity.image}}"/>
+	</div>
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-9">
+				<input-field f-label="generic.name" 
+					 f-model="entity.teamName"
+					 if-name="teamName"
+					 if-type="text"
+					 if-required="true"
+					 if-ng-minlength="1"
+					 if-ng-maxlength="50"></input-field>
+			</div>
+			<div class="col-md-3">
+				<input-field f-label="generic.code" 
+					 f-model="entity.teamCode"
+					 if-name="teamCode"
+					 if-type="text"
+					 if-required="true"></input-field>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<input-field f-label="generic.score" 
+					 f-model="entity.score"
+					 if-name="score"
+					 if-type="number"
+					 if-required="true"
+					 if-ng-minlength="1"
+					 if-ng-maxlength="50"></input-field>
+			</div>
+		</div>
+		<div class="row top-buffer" ng-show="entity.id">
+			<div class="col-md-12">
+				<upload-panel label="team_images" 
+							  object-id="entity.id"  
+							  bean="team_image_attachment">
+				</upload-panel>
+			</div>
+		</div>	 
+	</div>
+</div>

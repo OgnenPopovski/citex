@@ -1,0 +1,7 @@
+<div ng-class="{'has-error has-feedback': ($root.errors && $root.errors[field]) || (form[field].$dirty && form[field].$invalid)}">
+  <label class="control-label" for="field">{{ label | translate }} <span>*</span></label>
+  <div ng-transclude></div>
+  <span ng-if="$root.errors[field] || (form[field].$invalid && form[field].$dirty)" class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <p ng-show="$root.errors[field]" class="help-block">{{$root.errors[field] | translate}}</p>
+  <p ng-show="form[field].$invalid && form[field].$dirty" class="help-block">{{ message | translate}}</p>
+</div>

@@ -1,0 +1,6 @@
+<span class="date">{{ dateFrom | date:'d MMM, yyyy'}} - {{ dateTo | date:'d MMM, yyyy' }}</span>
+<div class="progress" title="{{title}}">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%">
+    <span class="sr-only">{{progress}}%</span>
+  </div>
+</div>

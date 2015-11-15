@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label class="control-label" for="field" ng-show="radioLabel">{{ radioLabel | translate }}</label>
+  <i ng-if="clearable" class="fa fa-fw fa-close clickable" title="{{ 'action.clear' | translate}}" ng-click="clear()"></i>
+  <div class="btn-group" style="display:block;" ng-model="radioModel" bs-radio-group>
+    <label class="btn btn-default" ng-class="{trueValue: 'active'}[radioModel]" ng-click="radioModel=trueValue">
+      <input type="radio" value="{{trueValue}}">
+      <i ng-if="trueIcon" class="fa fa-fw {{trueIcon}}"></i> {{ trueLabel | translate }}
+    </label>
+    <label class="btn btn-default" ng-class="{falseValue: 'active'}[radioModel]" ng-click="radioModel=falseValue">
+      <input type="radio" value="{{falseValue}}">
+      <i ng-if="falseIcon" class="fa fa-fw {{falseIcon}}"></i> {{ falseLabel | translate }}
+    </label>
+  </div>
+</div>

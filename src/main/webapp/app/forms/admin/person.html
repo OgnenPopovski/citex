@@ -1,0 +1,20 @@
+<input-field f-label="generic.first_name" 
+			 f-model="entity.firstName"
+			 if-name="firstName"
+			 if-type="text"
+			 if-required="true"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+			 
+<input-field f-label="generic.last_name" 
+			 f-model="entity.lastName"
+			 if-name="lastName"
+			 if-type="text"
+			 if-required="true"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+			 
+<div>
+	<label>{{ 'sl.person_id' | translate }}:</label>
+	<b>{{entity.personId}}</b>
+</div>

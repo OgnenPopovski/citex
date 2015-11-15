@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="$hide()">&times;</button>
+	<h4 class="modal-title">{{ 'action.delete' | translate }} <span class="text-danger">{{ 'generic.attachment' | translate }}</span></h4>
+</div>
+<div class="modal-body">
+	{{ 'generic.modal_delete_prompt' | translate }}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="$hide()"> {{ 'action.cancel' | translate }}</button>
+	<delete-button delete-function="deleteAttachment(attachmentId)">
+	</delete-button>
+</div>

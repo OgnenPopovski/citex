@@ -1,0 +1,22 @@
+<div class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">{{ 'generic.add_or_edit' | translate }} <span class="text-info">{{ crudTitle | translate }}</span></h4>
+      </div>
+      <form name="form{{crudTitle}}" role="form" novalidate class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+		ng-submit="save()">
+      <div class="modal-body" ng-bind="content"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$hide()">
+        	<i class="fa fa-fw fa-times"></i> {{ 'action.cancel' | translate }}
+        </button>
+        <button type="submit" ng-disabled="form{{crudTitle}}.$invalid" class="btn btn-primary">
+			<i class="fa fa-fw fa-save"></i> {{ 'action.save' | translate }}
+		</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

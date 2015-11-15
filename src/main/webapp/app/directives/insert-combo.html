@@ -1,0 +1,11 @@
+<a class="btn btn-primary sel-btn btn-xs" ng-click="createNew()">                        
+	<i class="fa fa-fw fa-plus"></i> {{ 'action.add' | translate }} {{ comboLabel | translate }} 
+</a>
+<div class="form-group">
+	<label class="control-label" for="field">{{ comboLabel | translate }} <span ng-show="comboRequired">*</span></label>
+	<input ui-select2="options" 
+			class="form-select" 
+			name="comboName"
+			ng-model="comboModel"
+			data-placeholder="{{ 'action.select' | translate }} {{ comboLabel | translate | lowercase }}..." />
+</div>

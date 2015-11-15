@@ -1,0 +1,24 @@
+<linked-page-header></linked-page-header>
+
+<crud crud-title="eauction.user_role" 
+	crud-type="user_roles" 
+    crud-form="admin/auth/user_roles" 
+	crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+
+	<div class="table-responsive">
+        <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+            <tbody>
+                <tr ng-repeat="r in $data">
+                    <td class="td-id" data-title="'ID'"  sortable="'id'">{{r.id}}</td>
+                    <td data-title="'generic.name' | translate"  sortable="'name'" filter="{ 'name': 'text' }">{{r.name}}</td>
+                   <td data-title="'generic.code' | translate"  sortable="'code'">{{r.code}}</td>
+                   <td data-title="'generic.description' | translate" >{{r.description}}</td>
+                    <td class="td-edit" data-title="'action.edit' | translate">
+						<edit-button small edit-function="edit(r.id)"></edit-button>
+                        <delete-button small delete-function="deleteDialog(r.id)"></delete-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</crud>

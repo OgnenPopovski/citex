@@ -1,0 +1,16 @@
+<input-field f-label="generic.key" 
+			 f-model="entity.key"
+			 if-name="key"
+			 if-type="text"
+			 if-required="true"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+
+<div ng-repeat="lang in languages">		 
+	<input-field f-label="{{'generic.value_'+lang.name}}" 
+			 f-model="entity[lang.name]"
+			 if-name="{{lang.name}}"
+			 if-type="text"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+</div>

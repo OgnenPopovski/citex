@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-12">
+    <combo combo-required="true" multiple="true" combo-type="user_roles" combo-label="eauction.roles" combo-model="assignmentEntity.roles" combo-name="role">
+    </combo>
+    <div class="right">
+      <div ng-repeat="a in userRolePages">
+        <span class="badge">{{a.role.name}}</span>
+      </div>
+    </div>
+  </div>
+</div>

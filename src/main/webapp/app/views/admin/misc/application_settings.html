@@ -1,0 +1,22 @@
+<linked-page-header></linked-page-header>
+
+<crud crud-title="eauction.application_settings" 
+      crud-type="application_settings" 
+      crud-form="admin/misc/application_settings" 
+      crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+    <div class="table-responsive">
+        <table ng-table="table" class="table table-bordered table-striped table-condensed ng-table-responsive">
+            <tbody>
+                <tr ng-repeat="d in $data">
+                    <td data-title="'generic.company_name' | translate" 
+                        sortable="'companyName'" 
+                        filter="{ 'companyName': 'text' }">{{d.companyName}}</td>
+                    <td data-title="'generic.address' | translate">{{d.address}}</td>
+                    <td data-title="'generic.email' | translate">{{d.email}}</td>
+                    <td class="td-edit" data-title="'action.edit' | translate">
+                        <edit-button small edit-function="edit(d.id)"></edit-button>
+                    </td>
+            </tbody>
+        </table>
+    </div>
+</crud>

@@ -1,0 +1,21 @@
+<input-field f-label="generic.name" 
+			 f-model="entity.name"
+			 if-name="name"
+			 if-type="text"
+			 if-required="true"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+			 
+<input-field f-label="generic.code" 
+			 f-model="entity.code"
+			 if-name="code"
+			 if-type="text"
+			 if-required="true"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+			 
+
+<div class="form-group">
+	<label for="description" translate="generic.description"></label>
+	<textarea rows="4" class="form-control" ng-model="entity.description"></textarea>
+</div>

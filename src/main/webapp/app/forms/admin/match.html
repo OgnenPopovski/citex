@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="col-md-12">
+		<input-field f-label="generic.matchTimeUTC" 
+					 f-model="entity.matchTimeUTC"
+					 if-name="matchTimeUTC"
+					 if-type="text"
+					 if-required="true"
+					 if-ng-minlength="1"
+					 if-ng-maxlength="50">
+		</input-field>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<combo combo-type="team" combo-required="true"
+				combo-label="homeTeam" 
+				combo-model="entity.homeTeam"
+				combo-name="homeTeam"
+				combo-property="teamName">
+		</combo>
+		<input-field f-label="generic.homeScore" 
+					 f-model="entity.homeScore"
+					 if-name="homeScore"
+					 if-type="number">
+		</input-field>
+	</div>
+	<div class="col-md-6">
+		<combo combo-type="team" combo-required="true"
+				combo-label="awayTeam" 
+				combo-model="entity.awayTeam"
+				combo-name="awayTeam"
+				combo-property="teamName">
+		</combo>
+		<input-field f-label="generic.awayScore" 
+					 f-model="entity.awayScore"
+					 if-name="awayScore"
+					 if-type="number">
+		</input-field>
+	</div>
+</div>
+		

@@ -1,0 +1,13 @@
+<input-field f-label="generic.username" 
+			 f-model="entity.username"
+			 if-name="username"
+			 if-type="text"
+			 if-required="true"
+			 if-ng-minlength="1"
+			 if-ng-maxlength="50"></input-field>
+			 
+<combo combo-type="user_roles" combo-required="true"
+		combo-label="eauction.user_role" 
+		combo-model="entity.role"
+		combo-name="role">
+</combo>

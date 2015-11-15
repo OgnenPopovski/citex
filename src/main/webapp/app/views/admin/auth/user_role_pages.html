@@ -1,0 +1,55 @@
+<linked-page-header></linked-page-header>
+
+<div class="row">
+	<div class="col-md-7">
+		<crud crud-title="eauction.user_role_page" 
+			crud-type="user_role_pages" 
+			crud-form="admin/auth/user_role_pages" 
+			crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+		
+			<div class="table-responsive">
+		        <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+		            <tbody>
+		                <tr ng-repeat="r in $data">
+		                   <td class="td-id" data-title="'ID'"  sortable="'id'">{{r.id}}</td>
+		                   <td data-title="'eauction.user_role' | translate"  sortable="'role.name'">{{r.role.name}}</td>
+		                   <td data-title="'eauction.page' | translate"  sortable="'page.name'" filter="{ 'page.name': 'text' }">
+		                   		<b>{{r.page.group.name}}</b> - {{r.page.url}}
+		                   </td>
+		                   <!-- <td data-title="'generic.description' | translate" >{{r.description}}</td> -->
+		                    <td class="td-edit" data-title="'action.edit' | translate">
+								<edit-button small edit-function="edit(r.id)"></edit-button>
+		                        <delete-button small delete-function="deleteDialog(r.id)"></delete-button>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>
+		</crud>
+	</div>
+	
+	<div class="col-md-5">
+		<crud crud-title="eauction.user_role_page_group" 
+			crud-type="user_role_page_groups" 
+			crud-form="admin/auth/user_role_page_groups" 
+			crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+		
+			<div class="table-responsive">
+		        <table ng-table="table" class="table table-bordered table-striped table-condensed ng-table-responsive">
+		            <tbody>
+		                <tr ng-repeat="r in $data">
+		                   <td class="td-id" data-title="'ID'"  sortable="'id'">{{r.id}}</td>
+		                   <td data-title="'eauction.user_role' | translate"  sortable="'role.name'">{{r.role.name}}</td>
+		                   <td data-title="'eauction.page_group' | translate"  sortable="'pageGroup.name'">{{r.pageGroup.name}}</td>
+		                   <!-- <td data-title="'generic.description' | translate" >{{r.description}}</td> -->
+		                    <td class="td-edit" data-title="'action.edit' | translate">
+								<edit-button small edit-function="edit(r.id)"></edit-button>
+		                        <delete-button small delete-function="deleteDialog(r.id)"></delete-button>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>
+		</crud>
+	</div>
+</div>

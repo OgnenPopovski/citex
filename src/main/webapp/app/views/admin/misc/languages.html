@@ -1,0 +1,26 @@
+<linked-page-header></linked-page-header>
+
+
+<i>
+	{{ 'hr.flag_icon_documentation' | translate}} <a target="_blank" href="http://tkrotoff.github.io/famfamfam_flags/">here</a>
+</i>
+<crud crud-title="hr.language" 
+	crud-type="languages"
+	crud-form="namedEntity" 
+	crud-table-params="{ count: 10, sorting: { id: 'desc' } }">
+
+	<div class="table-responsive">
+        <table ng-table="table" show-filter="true" class="table table-bordered table-striped table-condensed ng-table-responsive">
+            <tbody>
+                <tr ng-repeat="company in $data">
+                    <td class="td-id" data-title="'ID'"  sortable="'id'">{{company.id}}</td>
+                    <td data-title="'generic.name' | translate"  sortable="'name'" filter="{ 'name': 'text' }">{{company.name}}</td>                    
+                    <td class="td-edit" data-title="'action.edit' | translate">
+						<edit-button small edit-function="edit(company.id)"></edit-button>
+                        <delete-button small delete-function="deleteDialog(company.id)"></delete-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</crud>
