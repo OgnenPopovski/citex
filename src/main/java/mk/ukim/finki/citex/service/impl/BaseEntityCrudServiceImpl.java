@@ -7,14 +7,16 @@ package mk.ukim.finki.citex.service.impl;
 import java.util.Collection;
 import java.util.List;
 
-import mk.ukim.finki.citex.model.BaseEntity;
-import mk.ukim.finki.citex.repository.JpaSpecificationRepository;
-import mk.ukim.finki.citex.service.BaseEntityCrudService;
+import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+
+import mk.ukim.finki.citex.model.BaseEntity;
+import mk.ukim.finki.citex.repository.JpaSpecificationRepository;
+import mk.ukim.finki.citex.service.BaseEntityCrudService;
 
 /**
  *
@@ -50,6 +52,7 @@ public abstract class BaseEntityCrudServiceImpl<T extends BaseEntity, R extends 
     }
 
     @Override
+    @Transactional
     public T findById(Integer id) {
         return getRepository().findOne(id);
     }

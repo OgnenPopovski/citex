@@ -41,7 +41,7 @@
 					p:showSql="${jpa.showSQL}" />
 
 			</property>
-			<property name="persistenceUnitName" value="sport" />
+			<property name="persistenceUnitName" value="citexPersistenceManager" />
 			<property name="packagesToScan" value="mk.ukim.finki.citex" />
 		</bean>
 

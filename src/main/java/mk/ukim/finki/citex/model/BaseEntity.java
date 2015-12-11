@@ -63,7 +63,6 @@ public class BaseEntity {
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
 		return this.id != null ? (this.getClass() + "-" + this.id).hashCode()
 				: super.hashCode();
 	}
