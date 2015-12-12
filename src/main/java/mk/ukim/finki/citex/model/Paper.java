@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.common.collect.Lists;
@@ -28,8 +29,9 @@ public class Paper extends BaseEntity {
 	@Column
 	private String scholarId;
 
-	// @Column
-	// private List<Paper> citations = Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CITED_BY_ID", referencedColumnName = "ID")
+	private List<Paper> citations = Lists.newArrayList();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="AUTHORS_PAPERS",
@@ -66,13 +68,13 @@ public class Paper extends BaseEntity {
 		this.scholarCitations = scholarCitations;
 	}
 
-	// public List<Paper> getCitations() {
-	// return citations;
-	// }
-	//
-	// public void setCitations(List<Paper> citations) {
-	// this.citations = citations;
-	// }
+	 public List<Paper> getCitations() {
+	 return citations;
+	 }
+	
+	 public void setCitations(List<Paper> citations) {
+	 this.citations = citations;
+	 }
 
 	public List<Author> getAuthors() {
 		return authors;

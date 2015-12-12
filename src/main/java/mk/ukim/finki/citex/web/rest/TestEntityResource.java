@@ -81,8 +81,18 @@ public class TestEntityResource extends CrudResource<TestEntity, TestEntityServi
 		paper.setScholarCitations(10);
 		paper.setScholarId("PPP");
 		paper.setYear("2015");
+
+		Paper paper1 = new Paper();
+		paper1.setName("the winning paper");
+		paper1.setScholarCitations(10);
+		paper1.setScholarId("PPP");
+		paper1.setYear("2015");
+		paper.getCitations().add(paper1);
 		
 		paper.getAuthors().add(author);
+		paper1.getAuthors().add(author);
+		
+		paperService.saveAndFlush(paper1);
 		
 		return paperService.saveAndFlush(paper);
 	}
