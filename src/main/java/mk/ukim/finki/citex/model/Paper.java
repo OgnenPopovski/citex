@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.common.collect.Lists;
@@ -36,10 +35,6 @@ public class Paper extends BaseEntity {
 		inverseJoinColumns=
 	        @JoinColumn(name="CITED_ID", referencedColumnName="ID"))
 	private List<Paper> citations = Lists.newArrayList();
-
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "CITED_BY_ID", referencedColumnName = "ID")
-//	private List<Paper> citations = Lists.newArrayList();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="AUTHORS_PAPERS",
