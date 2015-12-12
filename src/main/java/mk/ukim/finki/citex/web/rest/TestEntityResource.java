@@ -1,10 +1,7 @@
 package mk.ukim.finki.citex.web.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+import java.util.Map;
 
 import mk.ukim.finki.citex.model.Author;
 import mk.ukim.finki.citex.model.Paper;
@@ -12,6 +9,14 @@ import mk.ukim.finki.citex.model.TestEntity;
 import mk.ukim.finki.citex.service.AuthorService;
 import mk.ukim.finki.citex.service.PaperService;
 import mk.ukim.finki.citex.service.TestEntityService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.collect.Maps;
 
 @RestController
 @RequestMapping("/rest/testEntity")
@@ -38,7 +43,16 @@ public class TestEntityResource extends CrudResource<TestEntity, TestEntityServi
 	
 	@RequestMapping(value = "/paper/{id}", method = RequestMethod.GET, produces = "application/json")
 	public Paper getPaperById(@PathVariable Integer id) {
-		return paperService.findById(id);
+		Paper paper = paperService.findById(id);
+		
+		List<Paper> citations = paper.getCitations();
+		Map<String, Integer> stats = Maps.newHashMap();
+		for (Paper citationPaper : citations) {
+			stats.put(citationPaper.getName(), citationPaper.getCitations().size());
+			System.out.println(citationPaper.getName() + ": " + citationPaper.getCitations().size());
+		}
+		
+		return paper;
 	}
 
 	@RequestMapping(value = "/author/lets/do/this", method = RequestMethod.GET, produces = "application/json")
@@ -77,21 +91,30 @@ public class TestEntityResource extends CrudResource<TestEntity, TestEntityServi
 		author.setScholarId("blablabla");
 		
 		Paper paper = new Paper();
-		paper.setName("the winning paper");
+		paper.setName("paper");
 		paper.setScholarCitations(10);
 		paper.setScholarId("PPP");
 		paper.setYear("2015");
+		paper.getAuthors().add(author);
 
 		Paper paper1 = new Paper();
-		paper1.setName("the winning paper");
+		paper1.setName("paper1");
 		paper1.setScholarCitations(10);
-		paper1.setScholarId("PPP");
+		paper1.setScholarId("PPP1");
 		paper1.setYear("2015");
-		paper.getCitations().add(paper1);
-		
-		paper.getAuthors().add(author);
 		paper1.getAuthors().add(author);
+		paper.getCitations().add(paper1);
+
+		Paper paper2 = new Paper();
+		paper2.setName("paper2");
+		paper2.setScholarCitations(10);
+		paper2.setScholarId("PPP2");
+		paper2.setYear("2015");
+		paper2.getAuthors().add(author);
+		paper.getCitations().add(paper2);
+		paper1.getCitations().add(paper2);
 		
+		paperService.saveAndFlush(paper2);
 		paperService.saveAndFlush(paper1);
 		
 		return paperService.saveAndFlush(paper);

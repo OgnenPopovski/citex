@@ -29,9 +29,17 @@ public class Paper extends BaseEntity {
 	@Column
 	private String scholarId;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "CITED_BY_ID", referencedColumnName = "ID")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="PAPERS_CITED",
+		joinColumns =
+			@JoinColumn(name="PAPER_ID", referencedColumnName="ID"),
+		inverseJoinColumns=
+	        @JoinColumn(name="CITED_ID", referencedColumnName="ID"))
 	private List<Paper> citations = Lists.newArrayList();
+
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "CITED_BY_ID", referencedColumnName = "ID")
+//	private List<Paper> citations = Lists.newArrayList();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="AUTHORS_PAPERS",
