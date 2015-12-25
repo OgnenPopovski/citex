@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -49,6 +50,9 @@ public class Author extends BaseEntity {
 	        )
 	private Set<Paper> papers = Sets.newHashSet();
 
+	@Column
+	private Double aScore = 1D;
+	
 	public String getName() {
 		return name;
 	}
@@ -111,5 +115,13 @@ public class Author extends BaseEntity {
 
 	public void setPapers(Set<Paper> papers) {
 		this.papers = papers;
+	}
+
+	public Double getaScore() {
+		return aScore;
+	}
+
+	public void setaScore(Double aScore) {
+		this.aScore = aScore;
 	}
 }

@@ -1,6 +1,6 @@
 package mk.ukim.finki.citex.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @Entity
 @Table(name = "PAPERS")
@@ -34,7 +34,7 @@ public class Paper extends BaseEntity {
 			@JoinColumn(name="PAPER_ID", referencedColumnName="ID"),
 		inverseJoinColumns=
 	        @JoinColumn(name="CITED_ID", referencedColumnName="ID"))
-	private List<Paper> citations = Lists.newArrayList();
+	private Set<Paper> citations = Sets.newHashSet();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="AUTHORS_PAPERS",
@@ -42,11 +42,14 @@ public class Paper extends BaseEntity {
 			@JoinColumn(name="PAPER_ID", referencedColumnName="ID"),
 		inverseJoinColumns=
 	        @JoinColumn(name="AUTHOR_ID", referencedColumnName="ID"))
-	private List<Author> authors = Lists.newArrayList();
+	private Set<Author> authors = Sets.newHashSet();
 
 	@Column
 	private boolean processed;
 
+	@Column
+	private Double pScore = 1D;
+	
 	public String getName() {
 		return name;
 	}
@@ -71,19 +74,19 @@ public class Paper extends BaseEntity {
 		this.scholarCitations = scholarCitations;
 	}
 
-	 public List<Paper> getCitations() {
+	 public Set<Paper> getCitations() {
 	 return citations;
 	 }
 	
-	 public void setCitations(List<Paper> citations) {
+	 public void setCitations(Set<Paper> citations) {
 	 this.citations = citations;
 	 }
 
-	public List<Author> getAuthors() {
+	public Set<Author> getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(List<Author> authors) {
+	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
 	}
 
@@ -101,5 +104,13 @@ public class Paper extends BaseEntity {
 
 	public void setProcessed(boolean processed) {
 		this.processed = processed;
+	}
+
+	public Double getpScore() {
+		return pScore;
+	}
+
+	public void setpScore(Double pScore) {
+		this.pScore = pScore;
 	}
 }

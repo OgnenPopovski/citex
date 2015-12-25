@@ -1,7 +1,7 @@
 package mk.ukim.finki.citex.web.rest;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mk.ukim.finki.citex.model.Author;
 import mk.ukim.finki.citex.model.Paper;
@@ -45,7 +45,7 @@ public class TestEntityResource extends CrudResource<TestEntity, TestEntityServi
 	public Paper getPaperById(@PathVariable Integer id) {
 		Paper paper = paperService.findById(id);
 		
-		List<Paper> citations = paper.getCitations();
+		Set<Paper> citations = paper.getCitations();
 		Map<String, Integer> stats = Maps.newHashMap();
 		for (Paper citationPaper : citations) {
 			stats.put(citationPaper.getName(), citationPaper.getCitations().size());
