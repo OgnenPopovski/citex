@@ -1,5 +1,7 @@
 package mk.ukim.finki.citex.service.impl;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -8,65 +10,53 @@ import java.util.stream.Collectors;
 
 import mk.ukim.finki.citex.model.Author;
 import mk.ukim.finki.citex.model.Paper;
-import mk.ukim.finki.citex.repository.AuthorRepository;
-import mk.ukim.finki.citex.repository.PaperRepository;
 import mk.ukim.finki.citex.service.CitexScoreService;
 
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.math.util.MathUtils;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 @Service
 public class CitexScoreServiceImpl implements CitexScoreService {
 
-	@Autowired
-	private PaperRepository paperRepository;
-	
-	@Autowired
-	private AuthorRepository authorRepository;
-	
 	public void calculateCitexScore(List<Author> authors, List<Paper> papers) {
-		resetState(authors, papers);
 		
 		double[] authorScores = new double[authors.size()];
 		initializeScoreVector(authorScores);
 		double[] paperScores = new double[papers.size()];
 		initializeScoreVector(paperScores);
 		
-		Map<Integer, Integer> publicationMatrixMap = Maps.newHashMap();
-		Map<Integer, Integer> citationMatrixMap = Maps.newHashMap();
+		double[] previousAuthorScores = new double[authors.size()];
+		initializeScoreVector(previousAuthorScores);
 		
-		int[][] publicationMatrix = generatePublicatoinMatrix(authors, papers, publicationMatrixMap, citationMatrixMap);
-		int[][] citationMatrix = generateCitationMatrix(papers, citationMatrixMap);
+		double[] previousPaperScores = new double[papers.size()];
+		initializeScoreVector(previousPaperScores);
 		
-		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+		Map<Integer, Integer> authorIdMap = Maps.newHashMap();
+		Map<Integer, Integer> paperIdMap = Maps.newHashMap();
 		
-		int authorScoreHashCode = hashCodeBuilder.append(authorScores).toHashCode(); 
-		int paperScoreHashCode = hashCodeBuilder.append(paperScores).toHashCode();
+		populateAuthorIdMap(authors, authorIdMap);
+		populatePaperIdMap(papers, paperIdMap);
 		
-		int authorScoreHashCodePrev = 0;
-		int paperScoreHashCodePrev = 0;
-
 		int iterationCount = 0;
 		
-		while (authorScoreHashCodePrev != authorScoreHashCode
-				&& paperScoreHashCode != paperScoreHashCodePrev) {
+		paperScores = normalizeScore(paperScores);
+		authorScores = normalizeScore(authorScores);
+		
+		do {
+			previousAuthorScores = ArrayUtils.clone(authorScores);
+			previousPaperScores = ArrayUtils.clone(paperScores);
 			System.out.println("iteration: " + ++iterationCount);
 			/*
 			 * 1) pScore = initPScore/k, k = |AUTHORS(pj)|
 			 */
 			for (int i = 0; i< papers.size(); i++) {
 				Paper currentPaper = papers.get(i);
-				Paper p = paperRepository.findOne(currentPaper.getId());
-				double currentPScore = currentPaper.getpScore();
-				double pScore = currentPScore / p.getAuthors().size();
-				p.setpScore(pScore);
-				// persist
-				paperRepository.save(p);
-				paperScores[i] = pScore;
+				double currentPScore = paperScores[paperIdMap.get(currentPaper.getId())];
+				double pScore = currentPScore / currentPaper.getAuthors().size();
+				paperScores[paperIdMap.get(currentPaper.getId())] = pScore;
 			}
 
 			/*
@@ -74,15 +64,12 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 			 */
 			for (int i = 0; i < authors.size(); i++) {
 				Author author = authors.get(i);
-				Set<Paper> papersFromAuthor = papers(author);
+				Set<Paper> papersFromAuthor = author.getPapers();
 				double aScore = 0;
 				for (Paper paper : papersFromAuthor) {
-					aScore += paper.getpScore();
+					aScore += paperScores[paperIdMap.get(paper.getId())];
 				}
-				author.setaScore(aScore);
-				// persist
-				authorRepository.save(author);
-				authorScores[i] = aScore;
+				authorScores[authorIdMap.get(author.getId())] = aScore;
 			}
 
 			/*
@@ -91,14 +78,11 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 			for (int i = 0; i < papers.size(); i++) {
 				Paper paper = papers.get(i);
 				double pScore = 0;
-				Set<Author> coAuthors = authors(paper);
+				Set<Author> coAuthors = paper.getAuthors();
 				for (Author coAuthor : coAuthors) {
-					pScore += coAuthor.getaScore();
+					pScore += authorScores[authorIdMap.get(coAuthor.getId())];
 				}
-				paper.setpScore(pScore);
-				// persist
-				paperRepository.save(paper);
-				paperScores[i] = pScore;
+				paperScores[paperIdMap.get(paper.getId())] = pScore;
 			}
 
 			/*
@@ -108,28 +92,46 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 			for (int i = 0; i < papers.size(); i++) {
 				Paper paper = papers.get(i);
 				double pScore = 0;
-				Set<Paper> coAuthors = cite(paper);
-				for (Paper coAuthor : coAuthors) {
-					pScore += coAuthor.getpScore();
+				Set<Paper> coAuthors = paper.getCitations();
+				for (Paper citation : coAuthors) {
+					pScore += paperScores[paperIdMap.get(citation.getId())];
 				}
-				double calcPScore = (pScore + paper.getpScore()) > Double.MAX_VALUE ? Double.MAX_VALUE
-						: pScore + paper.getpScore();
-				paper.setpScore(calcPScore);
-				// persist
-				paperRepository.save(paper);
-				paperScores[i] = calcPScore;
+				double calcPScore = pScore + paperScores[paperIdMap.get(paper.getId())];
+				paperScores[paperIdMap.get(paper.getId())] = calcPScore;
 			}
 			
-			authorScoreHashCodePrev = authorScoreHashCode;
-			paperScoreHashCodePrev = paperScoreHashCode;
-			
-			authorScoreHashCode = hashCodeBuilder.append(authorScores).toHashCode(); 
-			paperScoreHashCode = hashCodeBuilder.append(paperScores).toHashCode(); 
+			paperScores = normalizeScore(paperScores);
+			authorScores = normalizeScore(authorScores);
+
+//			System.out.println("results author scores: " + Arrays.toString(authorScores));
+//			System.out.println("results paper scores: " + Arrays.toString(paperScores));
+		} while (!equalArray(previousPaperScores, paperScores)
+				&& !equalArray(previousAuthorScores, authorScores));
+
+		
+		System.out.println("[previous] results author scores: " + Arrays.toString(previousAuthorScores));
+		System.out.println("[previous] results paper scores: " + Arrays.toString(previousPaperScores));
+		System.out
+				.println(System.lineSeparator()
+						+ "========================================================================="
+						+ System.lineSeparator());
+		System.out.println("results author scores: " + Arrays.toString(authorScores));
+		System.out.println("results paper scores: " + Arrays.toString(paperScores));
+	}
+
+	private boolean equalArray(double[] authorScores,
+			double[] previousAuthorScores) {
+		for (int i = 0; i < authorScores.length; i++) {
+			if (authorScores[i] != previousAuthorScores[i]) {
+				return false;
+			}
 		}
-		
-		System.out.println(Arrays.toString(authorScores));
-		System.out.println(Arrays.toString(paperScores));
-		
+		return true;
+	}
+
+	private double[] normalizeScore(double[] score) {
+		double[] normalized = MathUtils.normalizeArray(score, 1);
+		return normalized;
 	}
 
 	private int[][] generateCitationMatrix(List<Paper> papers,
@@ -152,22 +154,19 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 
 	private int[][] generatePublicatoinMatrix(List<Author> authors,
 			List<Paper> papers, 
-			Map<Integer, Integer> publicationMatrixMap, 
-			Map<Integer, Integer> citationMatrixMap) {
+			Map<Integer, Integer> authorIdMap, 
+			Map<Integer, Integer> paperIdMap) {
 
 		int[][] publicationMatrix = new int[authors.size()][papers.size()];
 		
-		initializePublicationMatrix(publicationMatrix);
-		
-		populatePublicationMap(authors, publicationMatrixMap);
-		populateCitationMap(papers, citationMatrixMap);
+		initializeMatrix(publicationMatrix);
 		
 		for (int i = 0; i < authors.size(); i++) {
 			Author author = authors.get(i);
 			Set<Integer> authorPaperIds = author.getPapers().stream()
 					.map(q -> q.getId()).collect(Collectors.toSet());
 			for (Integer paperId : authorPaperIds) {
-				int paperIndex = citationMatrixMap.get(paperId);
+				int paperIndex = paperIdMap.get(paperId);
 				publicationMatrix[i][paperIndex] = 1;
 			}
 		}
@@ -175,21 +174,21 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 		return publicationMatrix;
 	}
 
-	private void populateCitationMap(List<Paper> papers,
+	private void populatePaperIdMap(List<Paper> papers,
 			Map<Integer, Integer> citationMatrixMap) {
 		for (int i = 0; i < papers.size(); i++) {
 			citationMatrixMap.put(papers.get(i).getId(), i);
 		}
 	}
 
-	private void populatePublicationMap(List<Author> authors,
+	private void populateAuthorIdMap(List<Author> authors,
 			Map<Integer, Integer> publicationMatrixMap) {
 		for (int i = 0; i < authors.size(); i++) {
 			publicationMatrixMap.put(authors.get(i).getId(), i);
 		}
 	}
 
-	private void initializePublicationMatrix(int[][] publicatoinMatrix) {
+	private void initializeMatrix(int[][] publicatoinMatrix) {
 		for (int[] row : publicatoinMatrix) {
 			Arrays.fill(row, 0);
 		}
@@ -199,30 +198,7 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 		Arrays.fill(scoreVector, 1);
 	}
 
-	private Set<Paper> papers(Author author) {
-		return authorRepository.findOne(author.getId()).getPapers();
-	}
-
-	private Set<Author> authors(Paper paper) {
-		return paperRepository.findOne(paper.getId()).getAuthors();
-	}
-
-	private Set<Paper> cite(Paper paper) {
-		return paperRepository.findOne(paper.getId()).getCitations();
-	}
-
-	private List<Paper> references(Paper p) {
-		return Lists.newArrayList();
-	}
-
-	private void resetState(List<Author> authors, List<Paper> papers) {
-		for (Paper paper : papers) {
-			paper.setpScore(1D);
-		}
-		authorRepository.save(authors);
-		for (Author author : authors) {
-			author.setaScore(1D);
-		}
-		paperRepository.save(papers);
+	private Double getRoundedDouble(Double number) {
+		return new BigDecimal(number).setScale(4, RoundingMode.HALF_UP).doubleValue();
 	}
 }

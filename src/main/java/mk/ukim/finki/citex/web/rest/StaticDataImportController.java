@@ -36,6 +36,61 @@ public class StaticDataImportController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String replicateCitexPaperData() {
+//		example1();
+		example2();
+		return "done";
+	}
+
+	private void example2() {
+		Author a1 = new Author();
+		a1 = authorRepository.saveAndFlush(a1);
+		Author a2 = new Author();
+		a2 = authorRepository.saveAndFlush(a2);
+		Author a3 = new Author();
+		a3 = authorRepository.saveAndFlush(a3);
+		Author a4 = new Author();
+		a4 = authorRepository.saveAndFlush(a4);
+		Author a5 = new Author();
+		a5 = authorRepository.saveAndFlush(a5);
+		
+		Paper p1 = new Paper();
+		p1 = paperRepository.saveAndFlush(p1);
+		Paper p2 = new Paper();
+		p2 = paperRepository.saveAndFlush(p2);
+		Paper p3 = new Paper();
+		p3 = paperRepository.saveAndFlush(p3);
+		Paper p4 = new Paper();
+		p4 = paperRepository.saveAndFlush(p4);
+
+		a1.getPapers().add(p1);
+		a1 = authorRepository.saveAndFlush(a1);
+
+		a2.getPapers().add(p1);
+		a2.getPapers().add(p3);
+		a2 = authorRepository.saveAndFlush(a2);
+		
+		a3.getPapers().add(p2);
+		a3 = authorRepository.saveAndFlush(a3);
+		
+		a4.getPapers().add(p2);
+		a4 = authorRepository.saveAndFlush(a4);
+		
+		a5.getPapers().add(p4);
+		a5 = authorRepository.saveAndFlush(a5);
+		
+		p1.getCitations().add(p4);
+		p1 = paperRepository.saveAndFlush(p1);
+
+		p2.getCitations().add(p1);
+		p2 = paperRepository.saveAndFlush(p2);
+
+		p3.getCitations().add(p1);
+		p3.getCitations().add(p3);
+		p3.getCitations().add(p4);
+		p3 = paperRepository.saveAndFlush(p3);
+	}
+
+	private void example1() {
 		Author a1 = new Author();
 		a1 = authorRepository.saveAndFlush(a1);
 		Author a2 = new Author();
@@ -93,7 +148,6 @@ public class StaticDataImportController {
 		
 		p5.getCitations().clear();
 		p5 = paperRepository.saveAndFlush(p5);
-		return "done";
 	}
 	
 	@RequestMapping(value = "/data/generate/authors/{authorAddCount}/papers/{paperAddCount}", 
@@ -152,7 +206,7 @@ public class StaticDataImportController {
 				}
 				paper.getCitations().add(cite);
 			}
-			paperRepository.save(paper);
+			paperRepository.saveAndFlush(paper);
 		}
 
 		for (Paper paper : newPapers) {
@@ -165,7 +219,7 @@ public class StaticDataImportController {
 				}
 				paper.getAuthors().add(author);
 			}
-			paperRepository.save(paper);
+			paperRepository.saveAndFlush(paper);
 		}
 		
 		return "done";
