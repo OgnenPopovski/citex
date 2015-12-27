@@ -28,6 +28,9 @@ public class Paper extends BaseEntity {
 	@Column
 	private String scholarId;
 
+	@Column
+	private String publicationVenue;
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="PAPERS_CITED",
 		joinColumns =
@@ -112,5 +115,13 @@ public class Paper extends BaseEntity {
 
 	public void setpScore(Double pScore) {
 		this.pScore = pScore;
+	}
+
+	public String getPublicationVenue() {
+		return publicationVenue;
+	}
+
+	public void setPublicationVenue(String publicationVenue) {
+		this.publicationVenue = publicationVenue;
 	}
 }
