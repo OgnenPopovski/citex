@@ -30,7 +30,7 @@ public class Author extends BaseEntity {
 	private Integer scholarHIndex;
 
 	@Column
-	private Integer scholarI10Index;
+	private Long scholarI10Index;
 
 	@Column(length = 3000)
 	private String university;
@@ -77,11 +77,11 @@ public class Author extends BaseEntity {
 		this.scholarHIndex = scholarHIndex;
 	}
 
-	public Integer getScholarI10Index() {
+	public Long getScholarI10Index() {
 		return scholarI10Index;
 	}
 
-	public void setScholarI10Index(Integer scholarI10Index) {
+	public void setScholarI10Index(Long scholarI10Index) {
 		this.scholarI10Index = scholarI10Index;
 	}
 

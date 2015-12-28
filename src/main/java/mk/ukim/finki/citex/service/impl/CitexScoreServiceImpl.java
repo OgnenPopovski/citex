@@ -6,18 +6,27 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Maps;
 
 import mk.ukim.finki.citex.model.Author;
 import mk.ukim.finki.citex.model.Paper;
+import mk.ukim.finki.citex.repository.AuthorRepository;
+import mk.ukim.finki.citex.repository.PaperRepository;
 import mk.ukim.finki.citex.service.CitexScoreService;
 import mk.ukim.finki.citex.service.util.CitexScoreUtils;
 
 @Service
 public class CitexScoreServiceImpl implements CitexScoreService {
 
+	@Autowired
+	private AuthorRepository authorRepository;
+
+	@Autowired
+	private PaperRepository paperRepository;
+	
 	public void calculateCitexScore(List<Author> authors, List<Paper> papers) {
 		
 		double[] authorScores = new double[authors.size()];
@@ -114,6 +123,16 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 						+ System.lineSeparator());
 		System.out.println("results author scores: " + Arrays.toString(authorScores));
 		System.out.println("results paper scores: " + Arrays.toString(paperScores));
+		
+		for (Author author : authors) {
+			author.setaScore(authorScores[authorIdMap.get(author.getId())]);
+		}
+		authorRepository.save(authors);
+
+		for (Paper paper: papers) {
+			paper.setpScore(authorScores[authorIdMap.get(paper.getId())]);
+		}
+		paperRepository.save(papers);
 	}
 
 	private boolean equalArray(double[] authorScores,

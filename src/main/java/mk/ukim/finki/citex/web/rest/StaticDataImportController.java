@@ -32,7 +32,7 @@ public class StaticDataImportController {
 		
 		datasetImporter.importDataset();
 		
-		return "done";
+		return "importing dataset from txt done.";
 	}
 
 	@RequestMapping(value = "/replicate/example/{exampleNum}", 
@@ -47,7 +47,7 @@ public class StaticDataImportController {
 			staticDataGenerator.example2();
 		}
 		
-		return "done";
+		return "replicating paper example" + exampleNum + "done";
 	}
 
 	@RequestMapping(value = "/generate/authors/{authorAddCount}/papers/{paperAddCount}", 
@@ -58,7 +58,7 @@ public class StaticDataImportController {
 		
 		staticDataGenerator.generateRandomData(authorAddCount, paperAddCount);
 		
-		return "done";
+		return "generated random data with [" + authorAddCount + "] authors and [" + paperAddCount + "] papers.";
 	}
 	
 }

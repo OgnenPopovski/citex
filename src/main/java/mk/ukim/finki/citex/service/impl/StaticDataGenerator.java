@@ -40,7 +40,7 @@ public class StaticDataGenerator {
 			Author author = new Author();
 			author.setName(generateRandomString());
 			author.setScholarHIndex(random.nextInt(20));
-			author.setScholarI10Index(random.nextInt(30));
+			author.setScholarI10Index(Long.valueOf(random.nextInt(30)));
 			author.setUniversity(universitiesStatic[random.nextInt(universitiesStatic.length - 1)]);
 			author.setScholarId(generateRandomString());
 			
