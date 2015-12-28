@@ -20,7 +20,7 @@ import com.google.common.collect.Sets;
 @Table(name = "AUTHORS")
 public class Author extends BaseEntity {
 
-	@Column
+	@Column(length = 3000)
 	private String name;
 
 	@Column
@@ -32,7 +32,7 @@ public class Author extends BaseEntity {
 	@Column
 	private Integer scholarI10Index;
 
-	@Column
+	@Column(length = 3000)
 	private String university;
 
 	@Column

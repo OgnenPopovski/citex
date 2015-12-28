@@ -16,7 +16,7 @@ import com.google.common.collect.Sets;
 @Table(name = "PAPERS")
 public class Paper extends BaseEntity {
 
-	@Column
+	@Column(length = 3000)
 	private String name;
 
 	@Column
@@ -28,7 +28,7 @@ public class Paper extends BaseEntity {
 	@Column
 	private String scholarId;
 
-	@Column
+	@Column(length = 3000)
 	private String publicationVenue;
 
 	@ManyToMany(cascade = CascadeType.ALL)
