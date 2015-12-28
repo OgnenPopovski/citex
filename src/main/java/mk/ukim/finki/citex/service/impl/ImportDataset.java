@@ -27,9 +27,11 @@ public class ImportDataset {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImportDataset.class);
 	
-//	private static final String PUBLICATIONS_DATASET = "files/dataset/publications.txt";
+	private static final String PUBLICATIONS_DATASET = "files/dataset/publications.txt";
 	
 	private static final String TEST_DATASET = "files/dataset/test.txt";
+	
+	private static final String SOFTWARE_ENGINEERING_DATASET = "files/dataset/domains/Software_engineering.txt";
 
 	@Autowired
 	private AuthorRepository authorRepository;
@@ -39,14 +41,15 @@ public class ImportDataset {
 	
 	
 	public String importDataset() throws URISyntaxException, IOException {
-		Path path = Paths.get(getClass().getClassLoader().getResource(TEST_DATASET).toURI());
+		Path path = Paths.get(getClass().getClassLoader().getResource(SOFTWARE_ENGINEERING_DATASET).toURI());
 		File datasetResource = path.toFile();
 		LineIterator lineIterator = FileUtils.lineIterator(datasetResource, StandardCharsets.UTF_8.name());
 		try {
 			Paper paper = new Paper();
 			while(lineIterator.hasNext()) {
 				String line = lineIterator.nextLine();
-				if (line.equals(StringUtils.EMPTY)) {
+				
+				if (StringUtils.isBlank(line)) {
 //					LOGGER.info("paper saved. Paper identifier: {}", paper.getScholarId());
 					System.out.println("paper saved. Paper identifier: " + paper.getScholarId());
 					// save
@@ -103,6 +106,10 @@ public class ImportDataset {
 	}
 
 	private void handleCitationRelations(Paper paper, String line) {
+		if(paper.getScholarId().equals(line)) {
+			return;
+		}
+		
 		Paper citation = paperRepository.findPaperByScholarId(line);
 		if (citation == null) {
 			citation = new Paper();
