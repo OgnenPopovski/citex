@@ -27,7 +27,7 @@ public class ClassicScoreServiceImpl implements ClassicScoreService{
 			Set<Paper> papers = author.getPapers();
 			
 			if (papers.isEmpty()) {
-				author.setScholarHIndex(null);
+				author.setScholarHIndex(0);
 				continue;
 			}
 			
@@ -62,6 +62,7 @@ public class ClassicScoreServiceImpl implements ClassicScoreService{
 		}
 		
 		authorRepository.save(authors);
+		authorRepository.flush();
 	}
 
 	@Override
@@ -74,6 +75,7 @@ public class ClassicScoreServiceImpl implements ClassicScoreService{
 									 .count()));
 
 		authorRepository.save(authors);
+		authorRepository.flush();
 	}
 
 }

@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.google.common.collect.Maps;
-
 import mk.ukim.finki.citex.model.Author;
 import mk.ukim.finki.citex.model.Paper;
 import mk.ukim.finki.citex.repository.AuthorRepository;
 import mk.ukim.finki.citex.repository.PaperRepository;
 import mk.ukim.finki.citex.service.CitexScoreService;
 import mk.ukim.finki.citex.service.util.CitexScoreUtils;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Maps;
 
 @Service
 public class CitexScoreServiceImpl implements CitexScoreService {
@@ -58,8 +58,6 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 			/*
 			 * 1) pScore = initPScore/k, k = |AUTHORS(pj)|
 			 */
-			
-			
 			for (int i = 0; i< papers.size(); i++) {
 				Paper currentPaper = papers.get(i);
 				double currentPScore = paperScores[paperIdMap.get(currentPaper.getId())];
@@ -117,22 +115,20 @@ public class CitexScoreServiceImpl implements CitexScoreService {
 		
 		System.out.println("[previous] results author scores: " + Arrays.toString(previousAuthorScores));
 		System.out.println("[previous] results paper scores: " + Arrays.toString(previousPaperScores));
-		System.out
-				.println(System.lineSeparator()
-						+ "========================================================================="
-						+ System.lineSeparator());
+		System.out.println(System.lineSeparator() + System.lineSeparator() + "=========================================================================" + System.lineSeparator() + System.lineSeparator());
 		System.out.println("results author scores: " + Arrays.toString(authorScores));
 		System.out.println("results paper scores: " + Arrays.toString(paperScores));
 		
 		for (Author author : authors) {
 			author.setaScore(authorScores[authorIdMap.get(author.getId())]);
 		}
-		authorRepository.save(authors);
-
-		for (Paper paper: papers) {
-			paper.setpScore(authorScores[authorIdMap.get(paper.getId())]);
-		}
-		paperRepository.save(papers);
+		
+		System.out.println(System.lineSeparator() + "Citex top 20 authors: ");
+		
+		authors.sort((author1, author2) -> author2.getaScore().compareTo(author1.getaScore()));
+		authors.stream().limit(20)
+						.forEach(a -> System.out.println(a.getId() + " " + a.getName() + " " + a.getaScore()));
+		
 	}
 
 	private boolean equalArray(double[] authorScores,

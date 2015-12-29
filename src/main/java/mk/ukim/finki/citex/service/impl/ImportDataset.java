@@ -7,6 +7,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import mk.ukim.finki.citex.model.Author;
+import mk.ukim.finki.citex.model.Paper;
+import mk.ukim.finki.citex.repository.AuthorRepository;
+import mk.ukim.finki.citex.repository.PaperRepository;
+import mk.ukim.finki.citex.service.util.CNDLinePrefix;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.slf4j.Logger;
@@ -16,17 +22,12 @@ import org.springframework.stereotype.Service;
 
 import com.github.dandelion.datatables.core.util.StringUtils;
 
-import mk.ukim.finki.citex.model.Author;
-import mk.ukim.finki.citex.model.Paper;
-import mk.ukim.finki.citex.repository.AuthorRepository;
-import mk.ukim.finki.citex.repository.PaperRepository;
-import mk.ukim.finki.citex.service.util.CNDLinePrefix;
-
 @Service
 public class ImportDataset {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImportDataset.class);
 	
+	// location on disc: {project_root}/src/main/resources/files/dataset/publications.txt
 	private static final String PUBLICATIONS_DATASET = "files/dataset/publications.txt";
 	
 	private static final String TEST_DATASET = "files/dataset/test.txt";
